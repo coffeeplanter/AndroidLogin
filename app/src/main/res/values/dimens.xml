@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zero_value">0dp</dimen>
+    <dimen name="widget_margin">24dp</dimen>
+    <dimen name="input_text_drawable_padding">8dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+</resources>
