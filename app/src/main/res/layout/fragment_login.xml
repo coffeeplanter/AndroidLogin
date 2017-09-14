@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,22 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/greeting_container"
             style="@style/DefaultAppTextView"
             android:text="@string/greeting_message"
             android:textAppearance="?android:attr/textAppearanceLarge"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/greeting_subtitle_container"
             style="@style/DefaultAppTextView"
             android:text="@string/greeting_subtitle_message"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/greeting_container"/>
+            app:layout_constraintTop_toBottomOf="@+id/greeting_container" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/login_container"
@@ -43,7 +42,7 @@
                 android:drawableLeft="@drawable/ic_new_login_black_24dp"
                 android:drawableStart="@drawable/ic_new_login_black_24dp"
                 android:hint="@string/prompt_login"
-                android:inputType="text"/>
+                android:inputType="text" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -68,17 +67,40 @@
                 android:imeActionId="@+id/login_action_id"
                 android:imeActionLabel="@string/action_sign_in"
                 android:imeOptions="actionDone"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/sign_in_button"
             style="@style/DefaultAppButton"
             android:text="@string/action_sign_in"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_container"/>
+            app:layout_constraintTop_toBottomOf="@+id/password_container" />
+
+        <View
+            android:id="@+id/fading_foreground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorFadeBackground"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/password_container"
+            app:layout_constraintLeft_toLeftOf="@+id/login_container"
+            app:layout_constraintRight_toRightOf="@+id/login_container"
+            app:layout_constraintTop_toTopOf="@+id/login_container" />
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/fading_foreground"
+            app:layout_constraintLeft_toLeftOf="@+id/fading_foreground"
+            app:layout_constraintRight_toRightOf="@+id/fading_foreground"
+            app:layout_constraintTop_toTopOf="@+id/fading_foreground" />
 
     </android.support.constraint.ConstraintLayout>
 

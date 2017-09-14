@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,34 +15,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.security.MessageDigest;
-import java.util.Date;
+import ru.coffeeplanter.androidlogin.loggedin.LoggedInFragment;
+import ru.coffeeplanter.androidlogin.login.LoginFragment;
 
 /**
  * Приложение состоит из одной активити, двух фрагментов
  * (для экрана авторизации и для экрана закрытой области) и сервиса таймера.
- *
+ * <p>
  * Активити хостит фрагменты, содержит реализацию колбэков,
- * управляет сохранинем, чтением и удалением логина и пароля (включая шифрование и расшифрование),
+ * управляет сохранением, чтением и удалением логина и пароля (включая шифрование и расшифрование),
  * управляет запуском и остановкой сервиса, получает сообщение от сервиса и обрабатывает нажатие кнопки "назад".
- *
+ * <p>
  * Фрагменты содержат пользовательский интерфейс.
- *
+ * <p>
  * Сервис — этой простой таймер, который по истечении заданного времени посылает широковещательное сообщение.
- *
+ * <p>
  * Класс Crypter выполняет функции шифрования и расшифрования.
  */
 
-/**
- * MainActivity class.
- */
-
-public class MainActivity extends AppCompatActivity
-        implements LoginFragment.Callback, LoggedInFragment.Callback {
+public class MainActivity extends AppCompatActivity implements
+        LoginFragment.LoginFragmentCallback,
+        LoggedInFragment.LoggedInFragmentCallback {
 
     static final String INTENT_TIME_SERVICE = "time"; // Key string for service intent.
 
-    private final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getName().substring(0, 23);
 
     // Fragments tags.
     private final String LOGIN_FRAGMENT_TAG = "LoginFragment";
@@ -149,7 +145,7 @@ public class MainActivity extends AppCompatActivity
 
     // LoginFragment callback.
     @Override
-    public void onSignIn(String login, String password) {
+    public void onSignedIn(String login, String password) {
         // Save login in settings.
         saveDataToSharedPreferences(login, password);
         // Load logged in fragment.

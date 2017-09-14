@@ -2,6 +2,8 @@
 <resources>
     <dimen name="zero_value">0dp</dimen>
     <dimen name="widget_margin">24dp</dimen>
+    <dimen name="widget_margin_bottom">24dp</dimen>
     <dimen name="input_text_drawable_padding">8dp</dimen>
+    <dimen name="button_vertical_padding">20dp</dimen>
     <dimen name="button_height">60dp</dimen>
 </resources>
