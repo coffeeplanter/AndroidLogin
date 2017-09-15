@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin;
+package ru.coffeeplanter.androidlogin.presentation.activities;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -15,8 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import ru.coffeeplanter.androidlogin.loggedin.LoggedInFragment;
-import ru.coffeeplanter.androidlogin.login.LoginFragment;
+import ru.coffeeplanter.androidlogin.domain.Crypter;
+import ru.coffeeplanter.androidlogin.R;
+import ru.coffeeplanter.androidlogin.domain.TimerService;
+import ru.coffeeplanter.androidlogin.presentation.fragments.loggedin.LoggedInFragment;
+import ru.coffeeplanter.androidlogin.presentation.fragments.login.LoginFragment;
 
 /**
  * Приложение состоит из одной активити, двух фрагментов
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements
         LoginFragment.LoginFragmentCallback,
         LoggedInFragment.LoggedInFragmentCallback {
 
-    static final String INTENT_TIME_SERVICE = "time"; // Key string for service intent.
+    public static final String INTENT_TIME_SERVICE = "time"; // Key string for service intent.
 
     private static final String TAG = MainActivity.class.getName().substring(0, 23);
 

@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin.login;
+package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
 import android.content.Context; // Needed to access to app resources.
 import android.os.Handler; // Needed to mock login process.

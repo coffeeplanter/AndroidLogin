@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin.login;
+package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
 import android.content.Context;
 import android.os.Bundle;

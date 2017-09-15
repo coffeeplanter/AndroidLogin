@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin.loggedin;
+package ru.coffeeplanter.androidlogin.presentation.fragments.loggedin;
 
 class LoggedInPresenterImpl implements LoggedInPresenter {
 

@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin;
+package ru.coffeeplanter.androidlogin.domain;
 
 import android.util.Base64;
 import android.util.Log;

@@ -1,18 +1,16 @@
-package ru.coffeeplanter.androidlogin;
+package ru.coffeeplanter.androidlogin.domain;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import ru.coffeeplanter.androidlogin.presentation.activities.MainActivity;
 
 public class TimerService extends Service {
 
-    static final String ACTION_TIME_IS_FINISHED = "ru.coffeeplanter.androidlogin.action.TIME_IS_FINISHED";
-    static final String INTENT_TIME_ELAPSED = "time_elapsed";
+    public static final String ACTION_TIME_IS_FINISHED = "ru.coffeeplanter.androidlogin.action.TIME_IS_FINISHED";
+    public static final String INTENT_TIME_ELAPSED = "time_elapsed";
 
     private final String TAG = "TimerService";
 
