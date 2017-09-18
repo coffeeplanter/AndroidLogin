@@ -1,9 +1,11 @@
 package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
-interface LoginPresenter {
+import ru.coffeeplanter.androidlogin.presentation.BasePresenter;
 
-    boolean validateLoginAndPassword(String login, String password);
-    boolean tryToLogin(String login, String password);
+interface LoginPresenter extends BasePresenter {
+
+    void validateLoginAndPassword(String login, String password);
+    void tryToLogin(String login, String password);
     void onFragmentPause();
     void onFragmentDestroy();
 

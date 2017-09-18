@@ -1,6 +1,8 @@
 package ru.coffeeplanter.androidlogin.presentation.fragments.loggedin;
 
-interface LoggedInPresenter {
+import ru.coffeeplanter.androidlogin.presentation.BasePresenter;
+
+interface LoggedInPresenter extends BasePresenter {
 
     void onFragmentCreateView();
     void exitButtonClicked();

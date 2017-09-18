@@ -51,7 +51,7 @@ public class LoginFragment extends Fragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         loginFragmentCallback = (LoginFragmentCallback) context;
-        presenter = new LoginPresenterImpl(this, getContext());
+        presenter = new LoginPresenterImpl(this);
     }
 
     @Nullable
@@ -199,7 +199,8 @@ public class LoginFragment extends Fragment implements
         if (actionId == R.id.login_action_id || actionId == EditorInfo.IME_ACTION_DONE) {
             String login = loginEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            return presenter.tryToLogin(login, password);
+            presenter.tryToLogin(login, password);
+            return true;
         } else {
             return false;
         }
