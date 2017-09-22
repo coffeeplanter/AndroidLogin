@@ -11,7 +11,7 @@ class LoggedInPresenterImpl implements LoggedInPresenter {
     @Override
     public void onFragmentCreateView() {
         if (loggedInView != null) {
-            loggedInView.getDataFromArguments();
+            loggedInView.getDataFromFragmentArguments();
             loggedInView.setGreetingMessage();
         }
     }

@@ -1,6 +1,8 @@
 package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
-interface LoginView {
+import ru.coffeeplanter.androidlogin.presentation.BaseView;
+
+interface LoginView extends BaseView {
 
     void switchToWaitingMode();
     void switchOffWaitingMode();

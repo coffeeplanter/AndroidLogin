@@ -1,19 +1,19 @@
 package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
-import ru.coffeeplanter.androidlogin.domain.AppInteractor;
-import ru.coffeeplanter.androidlogin.domain.AppInteractorImpl;
+import ru.coffeeplanter.androidlogin.domain.login.LoginInteractor;
+import ru.coffeeplanter.androidlogin.domain.login.LoginInteractorImpl;
 
-class LoginPresenterImpl implements LoginPresenter, AppInteractor.OnLoginFinishedListener {
+class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinishedListener {
 
     private LoginView loginView;
-    private AppInteractor interactor;
+    private LoginInteractor interactor;
 
     private String login;
     private String password;
 
     LoginPresenterImpl(LoginView loginView) {
         this.loginView = loginView;
-        interactor = new AppInteractorImpl(this, this);
+        interactor = new LoginInteractorImpl(this, this);
     }
 
     @Override

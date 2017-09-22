@@ -1,11 +1,13 @@
-package ru.coffeeplanter.androidlogin.domain;
+package ru.coffeeplanter.androidlogin.domain.login;
+
+import ru.coffeeplanter.androidlogin.domain.BaseInteractor;
 
 /**
  * Created by Ilya Solovyov on 18.09.2017.
  * is3k@ya.ru
  */
 
-public interface AppInteractor {
+public interface LoginInteractor extends BaseInteractor {
 
     interface OnLoginFinishedListener {
         void onLoginError(String error);
@@ -17,9 +19,5 @@ public interface AppInteractor {
     boolean validateLoginAndPassword(String login, String password);
 
     void tryToLogin(String login, String password);
-
-    void encrypt();
-
-    void decrypt();
 
 }

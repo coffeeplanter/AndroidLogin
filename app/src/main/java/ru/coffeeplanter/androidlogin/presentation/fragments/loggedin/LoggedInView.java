@@ -1,8 +1,10 @@
 package ru.coffeeplanter.androidlogin.presentation.fragments.loggedin;
 
-interface LoggedInView {
+import ru.coffeeplanter.androidlogin.presentation.BaseView;
 
-    void getDataFromArguments();
+interface LoggedInView extends BaseView {
+
+    void getDataFromFragmentArguments();
     void setGreetingMessage();
     void closeApp();
     void navigateToLoginFragment();

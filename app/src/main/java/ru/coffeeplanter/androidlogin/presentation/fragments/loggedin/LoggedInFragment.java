@@ -78,7 +78,7 @@ public class LoggedInFragment extends Fragment implements
     }
 
     @Override
-    public void getDataFromArguments() {
+    public void getDataFromFragmentArguments() {
         login = getArguments() != null ? getArguments().getString(ARG_LOGIN, "") : "";
     }
 

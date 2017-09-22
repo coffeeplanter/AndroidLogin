@@ -15,6 +15,7 @@ public class LoginMocker {
         execute(runnable, DEFAULT_LOGIN_MOCK_TIME);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static void execute(Runnable runnable, int delay) {
         new Handler().postDelayed(runnable, delay);
     }

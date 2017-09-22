@@ -37,12 +37,13 @@ import ru.coffeeplanter.androidlogin.presentation.fragments.login.LoginFragment;
  */
 
 public class MainActivity extends AppCompatActivity implements
+        MainActivityView,
         LoginFragment.LoginFragmentCallback,
         LoggedInFragment.LoggedInFragmentCallback {
 
     public static final String INTENT_TIME_SERVICE = "time"; // Key string for service intent.
 
-    private static final String TAG = MainActivity.class.getName().substring(0, 23);
+//    private static final String TAG = MainActivity.class.getName().substring(0, 23);
 
     // Fragments tags.
     private final String LOGIN_FRAGMENT_TAG = "LoginFragment";
@@ -65,9 +66,11 @@ public class MainActivity extends AppCompatActivity implements
 
     Crypter mCrypter;
 
-    SharedPreferences mSettings; // App settings.
+//    SharedPreferences mSettings; // App settings.
 
     BroadcastReceiver mReceiver; // Receiver to catch timeout messages from the TimerService.
+
+    private MainActivityPresenter presenter;
 
     // Loading of certain fragment depending on presence of saved login-password pair in settings.
     @Override
@@ -77,31 +80,15 @@ public class MainActivity extends AppCompatActivity implements
 
         setContentView(R.layout.activity_main);
 
-        // Getting cryption key value.
-        @SuppressLint("HardwareIds")
-        String secureId = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
-        cryptKey = secureId.getBytes();
+        presenter = new MainActivityPresenterImpl(this);
+        presenter.onActivityCreate();
 
-        // Cryption object creating.
-        mCrypter = new Crypter(cryptKey);
-
-        // Load settings from SharedPreferences.
-        mSettings = getSharedPreferences(APP_PREFS, MODE_PRIVATE);
-        long timestamp = mSettings.getLong(APP_TIMESTAMP, 0L);
-        String login = mSettings.getString(APP_PREFS_LOGIN, null);
-        String password = mSettings.getString(APP_PREFS_PASSWORD, null);
-
-        // Decryption.
-        login = mCrypter.decrypt(login);
-        password = mCrypter.decrypt(password);
-
-        // Load appropriate fragment.
-        loadAppropriateFragment(login, password, timestamp);
+        // Move to presenter.
 
         // Create and register Broadcast Receiver.
-        createReceiver();
-        IntentFilter filter = new IntentFilter(TimerService.ACTION_TIME_IS_FINISHED);
-        registerReceiver(mReceiver, filter);
+//        createReceiver();
+//        IntentFilter filter = new IntentFilter(TimerService.ACTION_TIME_IS_FINISHED);
+//        registerReceiver(mReceiver, filter);
 
     }
 
@@ -113,11 +100,11 @@ public class MainActivity extends AppCompatActivity implements
         // Check for LoggedInFragment is loaded.
         FragmentManager fm = getSupportFragmentManager();
         Fragment currentFragment = fm.findFragmentByTag(LOGGED_IN_FRAGMENT_TAG);
-        if ((currentFragment != null) && (!mSettings.contains(APP_PREFS_LOGIN))) {
-            if (fm.getBackStackEntryCount() > 0) {
-                fm.popBackStack();
-            }
-        }
+//        if ((currentFragment != null) && (!mSettings.contains(APP_PREFS_LOGIN))) {
+//            if (fm.getBackStackEntryCount() > 0) {
+//                fm.popBackStack();
+//            }
+//        }
     }
 
     @Override
@@ -131,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onDestroy() {
         unregisterReceiver(mReceiver); // Unregister BroadcastReceiver on activity destroy.
         super.onDestroy();
+        presenter.onActivityDestroy();
     }
 
     // Switch off Back press while LoggedInFragment is loaded.
@@ -150,20 +138,25 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onSignedIn(String login, String password) {
         // Save login in settings.
-        saveDataToSharedPreferences(login, password);
+//        saveDataToSharedPreferences(login, password);
         // Load logged in fragment.
-        changeToLoggedInFragment(login);
-        // Start TimerService.
-        Intent intent = new Intent(this, TimerService.class);
-        intent.putExtra(INTENT_TIME_SERVICE, TIME_TO_KEEP_LOGIN);
-        startService(intent);
+        presenter.onSignedIn(login);
+
+
+        // Move to presenter
+
+//        changeToLoggedInFragment(login);
+//        // Start TimerService.
+//        Intent intent = new Intent(this, TimerService.class);
+//        intent.putExtra(INTENT_TIME_SERVICE, TIME_TO_KEEP_LOGIN);
+//        startService(intent);
     }
 
     // LoggedInFragment callback.
     @Override
     public void onForgetUserPressed(String login) {
         // Remove login from saved settings.
-        clearSharedPreferences();
+//        clearSharedPreferences();
         // Load login fragment.
         FragmentManager fm = getSupportFragmentManager();
         checkBackStackAndChangeToLoginFragment(fm);
@@ -180,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements
             if ((login != null) && (password != null)) {
                 if (System.nanoTime() - timestamp > TIME_TO_KEEP_LOGIN * 1e9) {
                     // Remove login from saved settings.
-                    clearSharedPreferences();
+//                    clearSharedPreferences();
                     // Load LoginFragment.
                     loadLoginFragment(fm);
                 } else {
@@ -210,42 +203,42 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     // Saving to SharedPreferences.
-    private void saveDataToSharedPreferences(String login, String password) {
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString(APP_PREFS_LOGIN, mCrypter.encrypt(login));
-        editor.putString(APP_PREFS_PASSWORD, mCrypter.encrypt(password));
-        editor.putLong(APP_TIMESTAMP, System.nanoTime());
-        editor.apply();
-    }
+//    private void saveDataToSharedPreferences(String login, String password) {
+//        SharedPreferences.Editor editor = mSettings.edit();
+//        editor.putString(APP_PREFS_LOGIN, mCrypter.encrypt(login));
+//        editor.putString(APP_PREFS_PASSWORD, mCrypter.encrypt(password));
+//        editor.putLong(APP_TIMESTAMP, System.nanoTime());
+//        editor.apply();
+//    }
 
     // Clearing SharedPreferences.
-    private void clearSharedPreferences() {
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.remove(APP_PREFS_LOGIN);
-        editor.remove(APP_PREFS_PASSWORD);
-        editor.remove(APP_TIMESTAMP);
-        editor.apply();
-    }
+//    private void clearSharedPreferences() {
+//        SharedPreferences.Editor editor = mSettings.edit();
+//        editor.remove(APP_PREFS_LOGIN);
+//        editor.remove(APP_PREFS_PASSWORD);
+//        editor.remove(APP_TIMESTAMP);
+//        editor.apply();
+//    }
 
     // Broadcast receiver creation.
-    private void createReceiver() {
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.d(TAG, "System.nanoTime() from MainActivity: " + System.nanoTime());
-                long timeElapsed = intent.getLongExtra(TimerService.INTENT_TIME_ELAPSED, TIME_TO_KEEP_LOGIN);
-                // Remove login from saved settings.
-                clearSharedPreferences();
-                // Load login fragment if it's not already loaded.
-                FragmentManager fm = getSupportFragmentManager();
-                Fragment currentFragment = fm.findFragmentByTag(LOGGED_IN_FRAGMENT_TAG);
-                if ((currentFragment != null) && isInFront) {
-                    checkBackStackAndChangeToLoginFragment(fm);
-                    Toast.makeText(MainActivity.this, R.string.time_is_finished_toast, Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-    }
+//    private void createReceiver() {
+//        mReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Log.d(TAG, "System.nanoTime() from MainActivity: " + System.nanoTime());
+//                long timeElapsed = intent.getLongExtra(TimerService.INTENT_TIME_ELAPSED, TIME_TO_KEEP_LOGIN);
+//                // Remove login from saved settings.
+////                clearSharedPreferences();
+//                // Load login fragment if it's not already loaded.
+//                FragmentManager fm = getSupportFragmentManager();
+//                Fragment currentFragment = fm.findFragmentByTag(LOGGED_IN_FRAGMENT_TAG);
+//                if ((currentFragment != null) && isInFront) {
+//                    checkBackStackAndChangeToLoginFragment(fm);
+//                    Toast.makeText(MainActivity.this, R.string.time_is_finished_toast, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
+//    }
 
     // Animated change from LoggedInFragment to LoginFragment.
     private void changeToLoginFragment() {
@@ -256,18 +249,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     // Animated change from LoginFragment to LoggedInFragment.
-    private void changeToLoggedInFragment(String login) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // Set animation.
-        ft.setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
-                R.anim.slide_in_from_left, R.anim.slide_out_to_right);
-        // Create instance of being loaded fragment.
-        LoggedInFragment fragment = LoggedInFragment.newInstance(login);
-        // Load fragment.
-        ft.replace(R.id.fragment_container, fragment, LOGGED_IN_FRAGMENT_TAG);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
+//    private void changeToLoggedInFragment(String login) {
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        // Set animation.
+//        ft.setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left,
+//                R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+//        // Create instance of being loaded fragment.
+//        LoggedInFragment fragment = LoggedInFragment.newInstance(login);
+//        // Load fragment.
+//        ft.replace(R.id.fragment_container, fragment, LOGGED_IN_FRAGMENT_TAG);
+//        ft.addToBackStack(null);
+//        ft.commit();
+//    }
 
     // Check BackStack and choose right way to load LoginFragment.
     private void checkBackStackAndChangeToLoginFragment(FragmentManager fm) {
@@ -276,6 +269,62 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             changeToLoginFragment();
         }
+    }
+
+    @Override
+    public void addLoginFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, new LoginFragment(), LOGIN_FRAGMENT_TAG)
+                    .commit();
+        }
+    }
+
+    @Override
+    public void addLoggedInFragment(String login) {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, LoggedInFragment.newInstance(login), LOGGED_IN_FRAGMENT_TAG)
+                    .commit();
+        }
+    }
+
+    @Override
+    public void replaceFromLoginToLoggedInFragment(String login) {
+        FragmentManager fm = getSupportFragmentManager();
+        LoggedInFragment fragment = LoggedInFragment.newInstance(login);
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
+                .replace(R.id.fragment_container, fragment, LOGGED_IN_FRAGMENT_TAG)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void replaceFromLoggedInToLoginFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        LoginFragment fragment = new LoginFragment();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_from_left, R.anim.slide_out_to_right)
+                .replace(R.id.fragment_container, fragment, LOGIN_FRAGMENT_TAG)
+                .commit();
+    }
+
+    @Override
+    public void returnToLoginFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        }
+    }
+
+    @Override
+    public void createTimeOutReceiver() {
+
     }
 
 }

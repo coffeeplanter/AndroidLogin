@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin.domain;
+package ru.coffeeplanter.androidlogin.domain.login;
 
 import ru.coffeeplanter.androidlogin.R;
 import ru.coffeeplanter.androidlogin.data.settings.SettingsRepository;
@@ -12,7 +12,7 @@ import ru.coffeeplanter.androidlogin.presentation.BasePresenter;
  * is3k@ya.ru
  */
 
-public class AppInteractorImpl implements AppInteractor, Runnable {
+public class LoginInteractorImpl implements LoginInteractor, Runnable {
 
     private static final String REGEX_EMPTY_STRING = "^$";
     private static final String REGEX_TWO_CONSECUTIVE_SYMBOLS = "^(?!.*(.)\\1+).*$";
@@ -23,13 +23,20 @@ public class AppInteractorImpl implements AppInteractor, Runnable {
     private static final String REGEX_CONTAINS_DOTS_OR_SPACES = "^[^.|\\s]+$";
     private static final String REGEX_TOO_SHORT_LOGIN = "^.{4,}$";
 
+    private final long TIME_TO_KEEP_LOGIN = 300;
+
     private SettingsSource settingsRepository;
     private BasePresenter presenter;
     private OnLoginFinishedListener listener;
 
-    public AppInteractorImpl(BasePresenter presenter, OnLoginFinishedListener listener) {
+    public LoginInteractorImpl(BasePresenter presenter, OnLoginFinishedListener listener) {
         this.presenter = presenter;
         this.listener = listener;
+        this.settingsRepository = new SettingsRepository();
+    }
+
+    public LoginInteractorImpl(BasePresenter presenter) {
+        this.presenter = presenter;
         this.settingsRepository = new SettingsRepository();
     }
 
@@ -82,19 +89,10 @@ public class AppInteractorImpl implements AppInteractor, Runnable {
     public void tryToLogin(String login, String password) {
         if (validateLoginAndPassword(login, password)) {
             LoginMocker.execute(this);
+            settingsRepository.saveAuthorizationData(System.nanoTime(), login, password);
         } else {
             listener.onLoginFail();
         }
-    }
-
-    @Override
-    public void encrypt() {
-
-    }
-
-    @Override
-    public void decrypt() {
-
     }
 
     // Needed to mock login process.
