@@ -43,7 +43,13 @@ class MainActivityPresenterImpl implements MainActivityPresenter {
 
     @Override
     public void onBackPressed() {
-        // Process it.
+        mainActivityView.processBackPressed();
+    }
+
+    @Override
+    public void onBroadcastReceived() {
+        interactor.clearAuthorizationData();
+        mainActivityView.chooseFragmentOnBroadcastReceived();
     }
 
     @Override

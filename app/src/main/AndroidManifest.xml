@@ -22,7 +22,7 @@
         </activity>
 
         <service
-            android:name=".domain.TimerService"
+            android:name=".platform.TimerService"
             android:enabled="true" />
 
     </application>

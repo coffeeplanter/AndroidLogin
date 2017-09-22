@@ -18,5 +18,6 @@ public interface MainActivityPresenter extends BasePresenter {
     void onSignedIn(String login);
     void onActivityDestroy();
     void onBackPressed();
+    void onBroadcastReceived();
 
 }

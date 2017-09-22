@@ -5,7 +5,7 @@ package ru.coffeeplanter.androidlogin.data;
  * is3k@ya.ru
  */
 
-public interface DataSource {
+public interface BaseDataSource {
 
 
 

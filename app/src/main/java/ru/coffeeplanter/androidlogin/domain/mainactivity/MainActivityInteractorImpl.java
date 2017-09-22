@@ -40,4 +40,9 @@ public class MainActivityInteractorImpl implements MainActivityInteractor {
         }
     }
 
+    @Override
+    public void clearAuthorizationData() {
+        settingsRepository.clearAuthorizationData();
+    }
+
 }

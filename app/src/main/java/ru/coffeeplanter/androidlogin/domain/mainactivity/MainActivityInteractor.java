@@ -11,4 +11,6 @@ public interface MainActivityInteractor extends BaseInteractor {
 
     void chooseFragmentToLoadAtStart();
 
+    void clearAuthorizationData();
+
 }

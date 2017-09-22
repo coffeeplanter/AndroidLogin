@@ -1,4 +1,4 @@
-package ru.coffeeplanter.androidlogin.domain;
+package ru.coffeeplanter.androidlogin.platform;
 
 import android.app.Service;
 import android.content.Intent;
