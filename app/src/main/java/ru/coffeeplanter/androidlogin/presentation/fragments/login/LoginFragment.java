@@ -2,10 +2,12 @@ package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
@@ -56,7 +58,7 @@ public class LoginFragment extends Fragment implements
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -163,19 +165,29 @@ public class LoginFragment extends Fragment implements
 
     @Override
     public void showKeyboard() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity != null) {
+            View view = getActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }
         }
     }
 
     @Override
     public void hideKeyboard() {
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity != null) {
+            View view = getActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
         }
     }
 
@@ -190,13 +202,14 @@ public class LoginFragment extends Fragment implements
     // Needed to prevent touch events under fading foreground
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        view.performClick();
         return true;
     }
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         // Try to login
-        if (actionId == R.id.login_action_id || actionId == EditorInfo.IME_ACTION_DONE) {
+        if (actionId == R.integer.login_action_id || actionId == EditorInfo.IME_ACTION_DONE) {
             String login = loginEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             presenter.tryToLogin(login, password);

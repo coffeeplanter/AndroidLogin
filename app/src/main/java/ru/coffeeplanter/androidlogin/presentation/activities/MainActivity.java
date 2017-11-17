@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(timeOutReceiver); // Unregister BroadcastReceiver on activity destroy.
+//        unregisterReceiver(timeOutReceiver); // Unregister BroadcastReceiver on activity destroy.
         presenter.onActivityDestroy();
         super.onDestroy();
     }

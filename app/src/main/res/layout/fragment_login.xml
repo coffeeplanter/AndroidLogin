@@ -64,7 +64,7 @@
                 android:drawableLeft="@drawable/ic_password_black_24dp"
                 android:drawableStart="@drawable/ic_password_black_24dp"
                 android:hint="@string/prompt_password"
-                android:imeActionId="@+id/login_action_id"
+                android:imeActionId="@integer/login_action_id"
                 android:imeActionLabel="@string/action_sign_in"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword" />
@@ -86,10 +86,10 @@
             android:layout_height="0dp"
             android:background="@color/colorFadeBackground"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/password_container"
-            app:layout_constraintLeft_toLeftOf="@+id/login_container"
-            app:layout_constraintRight_toRightOf="@+id/login_container"
-            app:layout_constraintTop_toTopOf="@+id/login_container" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progress_bar"
