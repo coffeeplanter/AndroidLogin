@@ -8,6 +8,7 @@ import ru.coffeeplanter.androidlogin.domain.mainactivity.MainActivityInteractorI
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 class MainActivityPresenterImpl implements MainActivityPresenter {
 
     private MainActivityView mainActivityView;

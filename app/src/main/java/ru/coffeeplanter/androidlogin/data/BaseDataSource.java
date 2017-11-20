@@ -5,8 +5,6 @@ package ru.coffeeplanter.androidlogin.data;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public interface BaseDataSource {
-
-
-
 }

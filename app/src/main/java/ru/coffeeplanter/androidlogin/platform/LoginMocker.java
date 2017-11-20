@@ -7,6 +7,7 @@ import android.os.Handler;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class LoginMocker {
 
     private static final int DEFAULT_LOGIN_MOCK_TIME = 2000; // Delay in milliseconds.

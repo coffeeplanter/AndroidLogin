@@ -7,6 +7,7 @@ import ru.coffeeplanter.androidlogin.data.BaseDataSource;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public interface SettingsSource extends BaseDataSource {
 
     void saveTimeStamp(long timeStamp);

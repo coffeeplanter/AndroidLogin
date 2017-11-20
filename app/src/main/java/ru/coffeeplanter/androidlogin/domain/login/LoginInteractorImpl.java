@@ -12,6 +12,7 @@ import ru.coffeeplanter.androidlogin.presentation.BasePresenter;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class LoginInteractorImpl implements LoginInteractor, Runnable {
 
     private static final String REGEX_EMPTY_STRING = "^$";

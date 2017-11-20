@@ -3,6 +3,7 @@ package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 import ru.coffeeplanter.androidlogin.domain.login.LoginInteractor;
 import ru.coffeeplanter.androidlogin.domain.login.LoginInteractorImpl;
 
+@SuppressWarnings("SpellCheckingInspection")
 class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinishedListener {
 
     private LoginView loginView;

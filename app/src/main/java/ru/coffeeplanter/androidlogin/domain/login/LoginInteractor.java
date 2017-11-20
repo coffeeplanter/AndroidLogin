@@ -7,6 +7,7 @@ import ru.coffeeplanter.androidlogin.domain.BaseInteractor;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public interface LoginInteractor extends BaseInteractor {
 
     interface OnLoginFinishedListener {

@@ -5,6 +5,7 @@ package ru.coffeeplanter.androidlogin.platform;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class ResourceSupplier {
 
     public static String getString(int stringId) {

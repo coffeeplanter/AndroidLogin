@@ -10,7 +10,8 @@ import javax.crypto.spec.SecretKeySpec;
  * Cryption class.
  */
 
-public class Crypter {
+@SuppressWarnings("SpellCheckingInspection")
+class Crypter {
 
     private final String TAG = "Crypter";
 
@@ -19,7 +20,8 @@ public class Crypter {
     private Cipher mEncipher;
     private Cipher mDecipher;
 
-    public Crypter(byte[] key, String algorithm) {
+    @SuppressWarnings("WeakerAccess")
+    Crypter(byte[] key, String algorithm) {
         try {
             this.mAlgorithm = algorithm;
             mEncipher = Cipher.getInstance(getAlgorithm());
@@ -33,11 +35,11 @@ public class Crypter {
         }
     }
 
-    public Crypter(byte[] key) {
+    Crypter(byte[] key) {
         this(key, "AES");
     }
 
-    public String encrypt(String str) {
+    String encrypt(String str) {
         try {
             byte[] encrypted = mEncipher.doFinal(str.getBytes("UTF8"));
             return Base64.encodeToString(encrypted, Base64.DEFAULT);
@@ -48,7 +50,7 @@ public class Crypter {
         return str;
     }
 
-    public String decrypt(String str) {
+    String decrypt(String str) {
         try {
             byte[] decrypted = Base64.decode(str, Base64.DEFAULT);
             return new String(mDecipher.doFinal(decrypted), "UTF8");
@@ -59,7 +61,8 @@ public class Crypter {
         return str;
     }
 
-    public String getAlgorithm() {
+    @SuppressWarnings("WeakerAccess")
+    String getAlgorithm() {
         return mAlgorithm;
     }
 

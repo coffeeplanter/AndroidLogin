@@ -7,6 +7,7 @@ import ru.coffeeplanter.androidlogin.presentation.BasePresenter;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public interface MainActivityPresenter extends BasePresenter {
 
     void onActivityCreate();

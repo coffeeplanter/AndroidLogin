@@ -5,5 +5,6 @@ package ru.coffeeplanter.androidlogin.domain;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public interface BaseInteractor {
 }

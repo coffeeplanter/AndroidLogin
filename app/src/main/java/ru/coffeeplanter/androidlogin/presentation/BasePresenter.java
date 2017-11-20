@@ -5,8 +5,6 @@ package ru.coffeeplanter.androidlogin.presentation;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public interface BasePresenter {
-
-
-
 }

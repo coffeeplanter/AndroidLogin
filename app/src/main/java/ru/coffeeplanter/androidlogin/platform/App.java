@@ -9,6 +9,7 @@ import android.content.Context;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class App extends Application {
 
     @SuppressLint("StaticFieldLeak")

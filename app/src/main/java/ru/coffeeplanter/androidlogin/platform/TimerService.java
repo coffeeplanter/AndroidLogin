@@ -33,7 +33,7 @@ public class TimerService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void makeFinishActions() {
+    void makeFinishActions() {
         Intent intent = new Intent(ACTION_TIME_IS_FINISHED);
         intent.putExtra(INTENT_TIME_ELAPSED, mTimeToKeepLogin);
         sendBroadcast(intent);

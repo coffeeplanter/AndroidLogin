@@ -9,6 +9,7 @@ import ru.coffeeplanter.androidlogin.presentation.activities.MainActivityPresent
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class MainActivityInteractorImpl implements MainActivityInteractor {
 
     private final long TIME_TO_KEEP_LOGIN = 10;

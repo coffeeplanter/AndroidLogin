@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -30,6 +29,7 @@ import ru.coffeeplanter.androidlogin.presentation.fragments.login.LoginFragment;
  * Класс Crypter выполняет функции шифрования и расшифрования.
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class MainActivity extends AppCompatActivity implements
         MainActivityView,
         LoginFragment.LoginFragmentCallback,

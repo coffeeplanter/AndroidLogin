@@ -7,6 +7,7 @@ import ru.coffeeplanter.androidlogin.presentation.BaseView;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 interface MainActivityView extends BaseView {
 
     void addLoginFragment();

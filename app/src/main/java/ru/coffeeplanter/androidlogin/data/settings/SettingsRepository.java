@@ -12,6 +12,7 @@ import ru.coffeeplanter.androidlogin.platform.App;
  * is3k@ya.ru
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class SettingsRepository implements SettingsSource {
 
     @SuppressWarnings("FieldCanBeLocal")
