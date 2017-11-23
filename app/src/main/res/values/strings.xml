@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Android Login</string>
+    <string name="action_time_is_finished" translatable="false">ru.coffeeplanter.androidlogin.action.TIME_IS_FINISHED</string>
+
     <string name="greeting_message">Welcome!</string>
     <string name="greeting_subtitle_message">Please enter your data to log in</string>
     <string name="prompt_login">Login</string>

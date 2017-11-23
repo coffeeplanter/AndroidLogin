@@ -14,8 +14,8 @@ interface MainActivityView extends BaseView {
     void addLoggedInFragment(String login);
     void replaceFromLoginToLoggedInFragment(String login);
     void replaceFromLoggedInToLoginFragment();
-    void returnToLoginFragment();
-    void createTimeOutReceiver();
+    void registerTimeOutReceiver();
+    void unregisterTimeOutReceiver();
     void chooseFragmentOnBroadcastReceived();
     void processBackPressed();
 

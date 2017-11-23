@@ -1,49 +1,79 @@
 package ru.coffeeplanter.androidlogin.platform;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import ru.coffeeplanter.androidlogin.R;
+import ru.coffeeplanter.androidlogin.data.settings.SettingsSource;
 import ru.coffeeplanter.androidlogin.presentation.activities.MainActivity;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class TimerService extends Service {
 
-    public static final String ACTION_TIME_IS_FINISHED = "ru.coffeeplanter.androidlogin.action.TIME_IS_FINISHED";
     public static final String INTENT_TIME_ELAPSED = "time_elapsed";
+    public static final String INTENT_TIME_SERVICE = "time";
+    public static final String ACTION_TIME_IS_FINISHED = ResourceSupplier.getString(R.string.action_time_is_finished);
 
-    private final String TAG = "TimerService";
+    private final String TAG = getTAG();
 
-    private Chronometer mTimer;
+    private Timer timer;
 
-    private long mTimeToKeepLogin; // Time to keep login in seconds.
+    private long timeToKeepLogin; // Time to keep login in seconds.
+
+    public static void start() {
+        Context context = App.getContext();
+        Intent intent = new Intent(context, TimerService.class);
+        intent.putExtra(INTENT_TIME_SERVICE, SettingsSource.TIME_TO_KEEP_LOGIN);
+        context.startService(intent);
+    }
+
+    public static void stop() {
+        Context context = App.getContext();
+        Intent intent = new Intent(context, TimerService.class);
+        context.stopService(intent);
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d(TAG, "Service started");
+        Log.e(TAG, "Service started");
 
         // Get time to keep login.
-        mTimeToKeepLogin = intent.getLongExtra(MainActivity.INTENT_TIME_SERVICE, 0);
+        timeToKeepLogin = intent.getLongExtra(INTENT_TIME_SERVICE, 0);
 
         // Start counting time.
-        mTimer = new Chronometer(mTimeToKeepLogin);
-        mTimer.start();
+        timer = new Timer(timeToKeepLogin);
+        timer.start();
 
         return super.onStartCommand(intent, flags, startId);
     }
 
     void makeFinishActions() {
         Intent intent = new Intent(ACTION_TIME_IS_FINISHED);
-        intent.putExtra(INTENT_TIME_ELAPSED, mTimeToKeepLogin);
+        intent.putExtra(INTENT_TIME_ELAPSED, timeToKeepLogin);
         sendBroadcast(intent);
         stopSelf();
+        Log.e(TAG, intent.toString());
     }
 
     @Override
     public void onDestroy() {
-        mTimer.terminate(); // Stop timer thread on service destroy.
+        timer.terminate(); // Stop timer thread on service destroy.
         super.onDestroy();
+        Log.e(TAG, "Service stopped");
+    }
+
+    private String getTAG() {
+        String TAG;
+        try {
+            TAG = getClass().getSimpleName().substring(0, 23);
+        } catch (StringIndexOutOfBoundsException sioobe) {
+            TAG = getClass().getSimpleName();
+        }
+        return TAG;
     }
 
     @Override
@@ -52,15 +82,15 @@ public class TimerService extends Service {
     }
 
     // Internal timer class.
-    private class Chronometer extends Thread {
+    private class Timer extends Thread {
 
-        private final int TIMER_FIDELITY = 1000; // Time between time limit checks in milliseconds.
+        private final int TIMER_FIDELITY = 100; // Time between time limit checks in milliseconds.
 
         private long timeUntilStop = 0L; // Time limit.
 
         private boolean mustStop = false; // Flag to stop thread.
 
-        Chronometer(long time) {
+        Timer(long time) {
             timeUntilStop = time;
         }
 

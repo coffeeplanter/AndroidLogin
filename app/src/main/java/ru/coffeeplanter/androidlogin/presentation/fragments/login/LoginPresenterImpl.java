@@ -2,6 +2,7 @@ package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
 import ru.coffeeplanter.androidlogin.domain.login.LoginInteractor;
 import ru.coffeeplanter.androidlogin.domain.login.LoginInteractorImpl;
+import ru.coffeeplanter.androidlogin.platform.TimerService;
 
 @SuppressWarnings("SpellCheckingInspection")
 class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinishedListener {
@@ -14,7 +15,7 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
 
     LoginPresenterImpl(LoginView loginView) {
         this.loginView = loginView;
-        interactor = new LoginInteractorImpl(this, this);
+        interactor = new LoginInteractorImpl(this);
     }
 
     @Override
@@ -53,7 +54,9 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
     public void onLoginError(String error) {
         if (loginView != null) {
             loginView.setLoginError(error);
-            loginView.setLoginFocused();
+            if (error != null) {
+                loginView.setLoginFocused();
+            }
         }
     }
 
@@ -61,7 +64,9 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
     public void onPasswordError(String error) {
         if (loginView != null) {
             loginView.setPasswordError(error);
-            loginView.setPasswordFocused();
+            if (error != null) {
+                loginView.setPasswordFocused();
+            }
         }
     }
 
@@ -71,6 +76,7 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
             loginView.switchOffWaitingMode();
             loginView.hideKeyboard();
             loginView.navigateToLoggedInFragment(login, password);
+            TimerService.start();
         }
     }
 

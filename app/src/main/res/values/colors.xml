@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">@color/colorMainBackgroundTop</color>
     <color name="colorAccent">#ff6d00</color>
     <color name="colorErrorText">#b71c1c</color>
+    <color name="colorMainBackgroundTop">#fffffde7</color>
+    <color name="colorMainBackgroundBottom">#fffff9c4</color>
     <color name="colorFadeBackground">#44000000</color>
+    <color name="colorFadeStatusBar">#bbb9a9</color>
 </resources>

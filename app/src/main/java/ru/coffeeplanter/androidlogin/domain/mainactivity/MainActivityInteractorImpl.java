@@ -12,8 +12,6 @@ import ru.coffeeplanter.androidlogin.presentation.activities.MainActivityPresent
 @SuppressWarnings("SpellCheckingInspection")
 public class MainActivityInteractorImpl implements MainActivityInteractor {
 
-    private final long TIME_TO_KEEP_LOGIN = 10;
-
     private SettingsSource settingsRepository;
     private MainActivityPresenter presenter;
 
@@ -30,7 +28,7 @@ public class MainActivityInteractorImpl implements MainActivityInteractor {
         long timeStamp = settingsRepository.getTimeStamp();
 
         if ((login != null) && (password != null)) {
-            if (System.nanoTime() - timeStamp > TIME_TO_KEEP_LOGIN * 1e9) {
+            if (System.nanoTime() - timeStamp > SettingsSource.TIME_TO_KEEP_LOGIN * 1e9) {
                 settingsRepository.clearAuthorizationData();
                 presenter.addLoginFragment();
             } else {

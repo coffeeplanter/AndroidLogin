@@ -22,14 +22,15 @@ public class LoggedInFragment extends Fragment implements
      * Obligatory interface for the host activity.
      */
     public interface LoggedInFragmentCallback {
-        void onForgetUserPressed(String login);
+        void onForgetUserPressed();
     }
 
     private static final String ARG_LOGIN = "login";
 
     private LoggedInPresenter presenter;
 
-    private LoggedInFragmentCallback loggedInFragmentCallback; // LoginFragmentCallback for forgetting user.
+    // LoginFragmentCallback for forgetting user.
+    private LoggedInFragmentCallback loggedInFragmentCallback;
 
     @SuppressWarnings("FieldCanBeLocal")
     private AppCompatTextView greetingTextView;
@@ -102,7 +103,7 @@ public class LoggedInFragment extends Fragment implements
     @Override
     public void navigateToLoginFragment() {
         if (loggedInFragmentCallback != null && login != null) {
-            loggedInFragmentCallback.onForgetUserPressed(login);
+            loggedInFragmentCallback.onForgetUserPressed();
         }
     }
 

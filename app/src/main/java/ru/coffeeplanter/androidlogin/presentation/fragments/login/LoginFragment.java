@@ -1,13 +1,16 @@
 package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
@@ -17,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import ru.coffeeplanter.androidlogin.R;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class LoginFragment extends Fragment implements
         LoginView,
         TextWatcher,
@@ -39,7 +44,8 @@ public class LoginFragment extends Fragment implements
 
     private LoginPresenter presenter;
 
-    private LoginFragmentCallback loginFragmentCallback; // LoggedInFragmentCallback for signing in.
+    // LoggedInFragmentCallback for signing in.
+    private LoginFragmentCallback loginFragmentCallback;
 
     @SuppressWarnings("FieldCanBeLocal")
     private AppCompatButton signInButton;
@@ -106,21 +112,29 @@ public class LoginFragment extends Fragment implements
 
     @Override
     public void switchToWaitingMode() {
+        hideKeyboard();
+        fadeStatusBar();
         fadingForeground.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         loginEditText.setFocusableInTouchMode(false);
+        loginEditText.setEnabled(false);
         passwordEditText.setFocusableInTouchMode(false);
+        passwordEditText.setEnabled(false);
+        signInButton.setClickable(false);
         loginEditText.clearFocus();
         passwordEditText.clearFocus();
     }
 
     @Override
     public void switchOffWaitingMode() {
+        unfadeStatusBar();
         progressBar.setVisibility(View.GONE);
         fadingForeground.setVisibility(View.GONE);
         loginEditText.setFocusableInTouchMode(true);
+        loginEditText.setEnabled(true);
         passwordEditText.setFocusableInTouchMode(true);
-        passwordEditText.requestFocus();
+        passwordEditText.setEnabled(true);
+        signInButton.setClickable(true);
     }
 
     @Override
@@ -192,6 +206,26 @@ public class LoginFragment extends Fragment implements
     }
 
     @Override
+    public void fadeStatusBar() {
+        setStatusBarFade(R.color.colorFadeStatusBar);
+    }
+
+    @Override
+    public void unfadeStatusBar() {
+        setStatusBarFade(R.color.colorMainBackgroundTop);
+    }
+
+    private void setStatusBarFade(@ColorRes int color) {
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            Window window = activity.getWindow();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.setStatusBarColor(ContextCompat.getColor(getActivity(), color));
+            }
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         // Try to login
         String login = loginEditText.getText().toString();
@@ -209,7 +243,7 @@ public class LoginFragment extends Fragment implements
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         // Try to login
-        if (actionId == R.integer.login_action_id || actionId == EditorInfo.IME_ACTION_DONE) {
+        if (actionId == getResources().getInteger(R.integer.login_action_id) || actionId == EditorInfo.IME_ACTION_DONE) {
             String login = loginEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             presenter.tryToLogin(login, password);

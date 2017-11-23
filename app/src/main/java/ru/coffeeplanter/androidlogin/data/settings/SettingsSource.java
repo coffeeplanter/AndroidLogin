@@ -10,6 +10,8 @@ import ru.coffeeplanter.androidlogin.data.BaseDataSource;
 @SuppressWarnings("SpellCheckingInspection")
 public interface SettingsSource extends BaseDataSource {
 
+    long TIME_TO_KEEP_LOGIN = 10;
+
     void saveTimeStamp(long timeStamp);
     long getTimeStamp();
     void saveLogin(String nonEncryptedLogin);

@@ -21,24 +21,13 @@ class MainActivityPresenterImpl implements MainActivityPresenter {
 
     @Override
     public void onActivityCreate() {
-
         interactor.chooseFragmentToLoadAtStart();
-
-//        if (interactor.isUserAuthorized()) {
-//            mainActivityView.addLoggedInFragment();
-//        } else {
-//            mainActivityView.addLoginFragment();
-//        }
-
-        mainActivityView.createTimeOutReceiver();
-
-        // Check settings
-        // Load fragment.
-        // Create receiver.
+        mainActivityView.registerTimeOutReceiver();
     }
 
     @Override
     public void onActivityDestroy() {
+        mainActivityView.unregisterTimeOutReceiver();
         mainActivityView = null;
     }
 
@@ -48,7 +37,7 @@ class MainActivityPresenterImpl implements MainActivityPresenter {
     }
 
     @Override
-    public void onBroadcastReceived() {
+    public void onTimeOutBroadcastReceived() {
         interactor.clearAuthorizationData();
         mainActivityView.chooseFragmentOnBroadcastReceived();
     }
@@ -64,24 +53,13 @@ class MainActivityPresenterImpl implements MainActivityPresenter {
     }
 
     @Override
-    public void replaceFromLoginToLoggedInFragment(String login) {
-        mainActivityView.replaceFromLoginToLoggedInFragment(login);
-    }
-
-    @Override
-    public void replaceFromLoggedInToLoginFragment() {
-        mainActivityView.replaceFromLoggedInToLoginFragment();
-    }
-
-    @Override
-    public void returnToLoginFragment() {
-        mainActivityView.returnToLoginFragment();
-    }
-
-    @Override
     public void onSignedIn(String login) {
         mainActivityView.replaceFromLoginToLoggedInFragment(login);
-        // Also start Timer.
+    }
+
+    @Override
+    public void onForgetUserPressed() {
+        mainActivityView.replaceFromLoggedInToLoginFragment();
     }
 
 }

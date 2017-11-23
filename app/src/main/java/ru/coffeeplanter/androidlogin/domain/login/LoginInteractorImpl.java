@@ -5,7 +5,6 @@ import ru.coffeeplanter.androidlogin.data.settings.SettingsRepository;
 import ru.coffeeplanter.androidlogin.data.settings.SettingsSource;
 import ru.coffeeplanter.androidlogin.platform.LoginMocker;
 import ru.coffeeplanter.androidlogin.platform.ResourceSupplier;
-import ru.coffeeplanter.androidlogin.presentation.BasePresenter;
 
 /**
  * Created by Ilya Solovyov on 18.09.2017.
@@ -24,20 +23,11 @@ public class LoginInteractorImpl implements LoginInteractor, Runnable {
     private static final String REGEX_CONTAINS_DOTS_OR_SPACES = "^[^.|\\s]+$";
     private static final String REGEX_TOO_SHORT_LOGIN = "^.{4,}$";
 
-    private final long TIME_TO_KEEP_LOGIN = 300;
-
     private SettingsSource settingsRepository;
-    private BasePresenter presenter;
     private OnLoginFinishedListener listener;
 
-    public LoginInteractorImpl(BasePresenter presenter, OnLoginFinishedListener listener) {
-        this.presenter = presenter;
+    public LoginInteractorImpl(OnLoginFinishedListener listener) {
         this.listener = listener;
-        this.settingsRepository = new SettingsRepository();
-    }
-
-    public LoginInteractorImpl(BasePresenter presenter) {
-        this.presenter = presenter;
         this.settingsRepository = new SettingsRepository();
     }
 

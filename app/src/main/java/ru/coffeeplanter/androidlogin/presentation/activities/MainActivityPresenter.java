@@ -13,12 +13,10 @@ public interface MainActivityPresenter extends BasePresenter {
     void onActivityCreate();
     void addLoginFragment();
     void addLoggedInFragment(String login);
-    void replaceFromLoginToLoggedInFragment(String login);
-    void replaceFromLoggedInToLoginFragment();
-    void returnToLoginFragment();
     void onSignedIn(String login);
+    void onForgetUserPressed();
     void onActivityDestroy();
     void onBackPressed();
-    void onBroadcastReceived();
+    void onTimeOutBroadcastReceived();
 
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="buttonStyle">@style/DefaultAppButton</item>
         <item name="android:textViewStyle">@style/DefaultAppTextView</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/colorMainBackgroundTop</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
     <!--Button style-->
@@ -45,6 +47,7 @@
         <item name="android:layout_marginTop">@dimen/widget_margin</item>
         <item name="android:layout_marginBottom">@dimen/widget_margin</item>
     </style>
+
     <style name="ErrorText" parent="TextAppearance.AppCompat.Small">
         <item name="android:textColor">@color/colorErrorText</item>
     </style>
@@ -55,6 +58,14 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:drawablePadding">@dimen/input_text_drawable_padding</item>
         <item name="android:maxLines">1</item>
+    </style>
+
+    <!--Fading foreground-->
+    <style name="FadingForeground" parent="AppTheme">
+        <item name="android:layout_width">@dimen/zero_value</item>
+        <item name="android:layout_height">@dimen/zero_value</item>
+        <item name="android:background">@color/colorFadeBackground</item>
+        <item name="android:visibility">gone</item>
     </style>
 
 </resources>

@@ -2,6 +2,7 @@ package ru.coffeeplanter.androidlogin.presentation.fragments.login;
 
 import ru.coffeeplanter.androidlogin.presentation.BaseView;
 
+@SuppressWarnings("SpellCheckingInspection")
 interface LoginView extends BaseView {
 
     void switchToWaitingMode();
@@ -15,5 +16,7 @@ interface LoginView extends BaseView {
     void navigateToLoggedInFragment(String login, String password);
     void showKeyboard();
     void hideKeyboard();
+    void fadeStatusBar();
+    void unfadeStatusBar();
 
 }
