@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import ru.coffeeplanter.androidlogin.R;
 import ru.coffeeplanter.androidlogin.data.settings.SettingsSource;
@@ -38,8 +37,6 @@ public class TimerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.e(TAG, "Service started");
-
         // Get time to keep login.
         timeToKeepLogin = intent.getLongExtra(INTENT_TIME_SERVICE, 0);
 
@@ -55,14 +52,12 @@ public class TimerService extends Service {
         intent.putExtra(INTENT_TIME_ELAPSED, timeToKeepLogin);
         sendBroadcast(intent);
         stopSelf();
-        Log.e(TAG, intent.toString());
     }
 
     @Override
     public void onDestroy() {
         timer.terminate(); // Stop timer thread on service destroy.
         super.onDestroy();
-        Log.e(TAG, "Service stopped");
     }
 
     private String getTAG() {

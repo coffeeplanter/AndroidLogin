@@ -1,18 +1,14 @@
 <resources>
+    <!--Manifest.xml-->
     <string name="app_name">Android Login</string>
     <string name="action_time_is_finished" translatable="false">ru.coffeeplanter.androidlogin.action.TIME_IS_FINISHED</string>
 
+    <!--LoginFragment.java-->
     <string name="greeting_message">Welcome!</string>
     <string name="greeting_subtitle_message">Please enter your data to log in</string>
     <string name="prompt_login">Login</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="private_greeting_message">Welcome to private area!</string>
-    <string name="custom_private_greeting_message">Dear %1$s,</string>
-    <string name="private_text_message">Welcome to your private area!\nHere you can find many wonderful functions, two of which are listed below.\nGood luck! :-)</string>
-    <string name="action_exit_from_app">Exit from app</string>
-    <string name="action_forget_user">Forget user</string>
-    <string name="time_is_finished_toast">Login life timed out.</string>
 
     <string name="empty_login_error_message_label">Please fill the login field</string>
     <string name="login_contains_dots_or_spaces_error_message_label">Login must not contain dots or spaces</string>
@@ -23,5 +19,12 @@
     <string name="password_contains_too_little_letters_error_message_label">Password must contain at least 3 letter symbols</string>
     <string name="password_contains_too_little_digits_error_message_label">Password must contain at least 3 digit symbols</string>
     <string name="short_password_error_message_label">Password must contain 6 or more symbols</string>
+
+    <!--LoggedInFragment.java-->
+    <string name="private_greeting_message">Welcome to private area!</string>
+    <string name="custom_private_greeting_message">Dear %1$s,</string>
+    <string name="private_text_message">Welcome to your private area!\nHere you can find many wonderful functions, two of which are listed below.\nGood luck! :-)</string>
+    <string name="action_exit_from_app">Exit from app</string>
+    <string name="action_forget_user">Forget user</string>
 
 </resources>

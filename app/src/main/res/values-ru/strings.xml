@@ -1,16 +1,13 @@
 <resources>
+    <!--Manifest.xml-->
     <string name="app_name">Android Login</string>
+
+    <!--LoginFragment.java-->
     <string name="greeting_message">Добро пожаловать!</string>
     <string name="greeting_subtitle_message">Введите свои данные</string>
     <string name="prompt_login">Имя пользователя</string>
     <string name="prompt_password">Пароль</string>
     <string name="action_sign_in">Войти</string>
-    <string name="private_greeting_message">Добро пожаловать в закрытую область!</string>
-    <string name="custom_private_greeting_message">Уважаемый(-ая, -ое)\n%1$s,</string>
-    <string name="private_text_message">Добро пожаловать в закрытую область!\nЗдесь вы найдёте множество полезных для вас возможностей, две из которых представлены ниже.\nУспехов! :-)</string>
-    <string name="action_exit_from_app">Выйти из приложения</string>
-    <string name="action_forget_user">Забыть пользователя</string>
-    <string name="time_is_finished_toast">Время жизни пользователя закончилось.</string>
 
     <string name="empty_login_error_message_label">Введите имя пользователя</string>
     <string name="login_contains_dots_or_spaces_error_message_label">Имя не должно содержать точек и пробелов</string>
@@ -21,5 +18,12 @@
     <string name="password_contains_too_little_letters_error_message_label">Пароль должен содержать не менее трёх букв</string>
     <string name="password_contains_too_little_digits_error_message_label">Пароль не может содержать не менее трёх цифр</string>
     <string name="short_password_error_message_label">Пароль должен состоять не менее чем из 6 символов</string>
+
+    <!--LoggedInFragment.java-->
+    <string name="private_greeting_message">Добро пожаловать в закрытую область!</string>
+    <string name="custom_private_greeting_message">Уважаемый(-ая, -ое)\n%1$s,</string>
+    <string name="private_text_message">Добро пожаловать в закрытую область!\nЗдесь вы найдёте множество полезных для вас возможностей, две из которых представлены ниже.\nУспехов! :-)</string>
+    <string name="action_exit_from_app">Выйти из приложения</string>
+    <string name="action_forget_user">Забыть пользователя</string>
 
 </resources>

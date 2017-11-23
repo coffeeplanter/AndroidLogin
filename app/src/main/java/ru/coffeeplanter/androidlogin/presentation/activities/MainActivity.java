@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import ru.coffeeplanter.androidlogin.R;
 import ru.coffeeplanter.androidlogin.platform.TimerService;
@@ -142,22 +140,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void returnToLoginFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
-            fm.popBackStack();
-        }
-    }
-
-    @Override
     public void chooseFragmentOnBroadcastReceived() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment currentFragment = fm.findFragmentByTag(LOGGED_IN_FRAGMENT_TAG);
         if ((currentFragment != null) && isActive()) {
             if (fm.getBackStackEntryCount() > 0) {
                 fm.popBackStack();
+            } else {
+                fm.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_from_left, R.anim.slide_out_to_right)
+                        .replace(R.id.fragment_container, new LoginFragment(), LOGIN_FRAGMENT_TAG)
+                        .commit();
             }
-            Toast.makeText(MainActivity.this, R.string.time_is_finished_toast, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -176,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements
         timeOutReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.e("Debug", "Broadcast received");
                 presenter.onTimeOutBroadcastReceived();
             }
         };
