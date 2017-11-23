@@ -8,7 +8,6 @@ import android.util.Log;
 
 import ru.coffeeplanter.androidlogin.R;
 import ru.coffeeplanter.androidlogin.data.settings.SettingsSource;
-import ru.coffeeplanter.androidlogin.presentation.activities.MainActivity;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TimerService extends Service {
