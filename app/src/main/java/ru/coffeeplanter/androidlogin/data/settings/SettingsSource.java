@@ -7,10 +7,10 @@ import ru.coffeeplanter.androidlogin.data.BaseDataSource;
  * is3k@ya.ru
  */
 
-@SuppressWarnings("SpellCheckingInspection")
+@SuppressWarnings({"SpellCheckingInspection", "unused"})
 public interface SettingsSource extends BaseDataSource {
 
-    long TIME_TO_KEEP_LOGIN = 10;
+    long TIME_TO_KEEP_LOGIN = 300;
 
     void saveTimeStamp(long timeStamp);
     long getTimeStamp();
